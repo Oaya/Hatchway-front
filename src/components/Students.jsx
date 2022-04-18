@@ -3,6 +3,7 @@ import React, {
   useEffect,
 } from "react";
 import axios from "axios";
+import StudentTestList from "./StudentTestList";
 
 function Students() {
   const [studentsData, setStudentsData] =
@@ -48,6 +49,9 @@ function Students() {
 
     return setStudentsData(newData);
   }
+  const handleClick = () => {
+    console.log("click ");
+  };
 
   return (
     <div className="card">
@@ -89,7 +93,17 @@ function Students() {
                 ) / item.grades.length}
                 %
               </p>
+              <StudentTestList
+                grades={item.grades}
+              />
             </div>
+
+            <button
+              className="card__button"
+              onClick={handleClick}
+            >
+              +
+            </button>
           </div>
         );
       })}
