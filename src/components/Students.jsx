@@ -49,7 +49,7 @@ function Students() {
       {studentsData.map((item) => {
         return (
           <div key={item.id} className="avatar">
-            <img src={item.pic} alt="avater" className="avatar-image" />
+            <img src={item.pic} alt="avatar" className="avatar-image" />
             <div className="content">
               <h1 className="avatar-name">
                 {item.firstName} {item.lastName}
