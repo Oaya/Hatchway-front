@@ -1,11 +1,11 @@
-import Students from "./components/Students";
+import StudentsCard from "./components/StudentsCard";
 
 import "./scss/main.scss";
 
 function App() {
   return (
     <div className="body">
-      <Students />
+      <StudentsCard />
     </div>
   );
 }

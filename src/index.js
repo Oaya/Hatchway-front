@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import StudentDataProvider from "./provider/StudentDataProvider";
 
 ReactDOM.render(
-  <App />,
-
+  <StudentDataProvider>
+    <App />
+  </StudentDataProvider>,
   document.getElementById("root")
 );

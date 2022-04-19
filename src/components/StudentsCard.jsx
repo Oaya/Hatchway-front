@@ -1,33 +1,19 @@
 import React, {
   useState,
-  useEffect,
+  useContext,
 } from "react";
-import axios from "axios";
+
 import StudentTestList from "./StudentTestList";
 import ToggleButton from "./ToggleButton";
+import SearchForm from "./SearchForm";
+import { StudentDataContext } from "../provider/StudentDataProvider";
+import TagForm from "./TagForm";
 
-function Students() {
-  const [studentsData, setStudentsData] =
-    useState([]);
-  const [searchValue, setSearchValue] =
-    useState("");
-
+function StudentsCard() {
   const [open, setOpen] = useState([]);
-
-  //get api request at for first render//
-  useEffect(() => {
-    axios
-      .get(
-        `https://www.hatchways.io/api/assessment/students`
-      )
-      .then((res) => {
-        setStudentsData(res.data.students);
-        console.log(res.data.students);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+  const { studentsData } = useContext(
+    StudentDataContext
+  );
 
   const toggleOpen = (id) => {
     if (open.includes(id)) {
@@ -39,48 +25,11 @@ function Students() {
     }
   };
 
-  //when user type something for search, update result//
-  useEffect(() => {
-    searchStudent();
-  }, [searchValue]);
-
-  function searchStudent() {
-    const newData = studentsData.filter(
-      (item) => {
-        return (
-          searchValue.toUpperCase() ===
-            item.firstName
-              .toUpperCase()
-              .substr(0, searchValue.length) ||
-          searchValue.toUpperCase() ===
-            item.lastName
-              .toUpperCase()
-              .substr(0, searchValue.length)
-        );
-      }
-    );
-
-    return setStudentsData(newData);
-  }
-  const handleClick = (e, i) => {
-    console.log(i);
-  };
-
   return (
     <div className="card">
-      <div className="card__input">
-        <input
-          className="card__input-form"
-          type="text"
-          value={searchValue}
-          placeholder="Search by name"
-          onChange={(e) =>
-            setSearchValue(e.target.value)
-          }
-        />
-      </div>
+      <SearchForm />
 
-      {studentsData.map((item) => {
+      {studentsData.map((item, index) => {
         return (
           <div
             key={item.id}
@@ -106,6 +55,11 @@ function Students() {
                 ) / item.grades.length}
                 %
               </p>
+              <TagForm
+                id={item.id}
+                index={index}
+              />
+
               {open.includes(item.id) && (
                 <StudentTestList
                   grades={item.grades}
@@ -124,4 +78,4 @@ function Students() {
     </div>
   );
 }
-export default Students;
+export default StudentsCard;
