@@ -21,7 +21,6 @@ export default function StudentDataProvider(
       )
       .then((res) => {
         setStudentsData(res.data.students);
-        console.log(res.data.students);
       })
       .catch((err) => {
         console.log(err.message);
@@ -31,6 +30,7 @@ export default function StudentDataProvider(
   //adding new tag to the studentData when user input//
   const addNewTag = (index, tag) => {
     const StudentTagData = [...studentsData];
+
     if (
       StudentTagData[index].tags === undefined
     ) {
@@ -38,9 +38,7 @@ export default function StudentDataProvider(
     } else {
       StudentTagData[index].tags.push(tag);
     }
-
     setStudentsData(StudentTagData);
-    console.log(studentsData);
   };
 
   const providerData = {
