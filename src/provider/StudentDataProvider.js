@@ -12,6 +12,8 @@ export default function StudentDataProvider(
 ) {
   const [studentsData, setStudentsData] =
     useState([]);
+  const [searchValue, setSearchValue] =
+    useState("");
 
   //get api request at for first render//
   useEffect(() => {
@@ -43,6 +45,8 @@ export default function StudentDataProvider(
 
   const providerData = {
     studentsData,
+    searchValue,
+    setSearchValue,
     setStudentsData,
     addNewTag,
   };

@@ -8,14 +8,14 @@ import ToggleButton from "./ToggleButton";
 import SearchForm from "./SearchForm";
 import { StudentDataContext } from "../provider/StudentDataProvider";
 import TagForm from "./TagForm";
-import TagList from "./TagList";
 
 function StudentsCard() {
   const [open, setOpen] = useState([]);
-  const { studentsData } = useContext(
-    StudentDataContext
-  );
-  console.log(studentsData);
+  const {
+    studentsData,
+    setStudentsData,
+    searchValue,
+  } = useContext(StudentDataContext);
 
   const toggleOpen = (id) => {
     if (open.includes(id)) {
@@ -27,10 +27,32 @@ function StudentsCard() {
     }
   };
 
+  const searchStudentByName = (value) => {
+    const newData = studentsData.filter(
+      (item) => {
+        return (
+          value ===
+            item.firstName
+              .toUpperCase()
+              .substr(0, value.length) ||
+          value ===
+            item.lastName
+              .toUpperCase()
+              .substr(0, value.length)
+        );
+      }
+    );
+
+    return setStudentsData(newData);
+  };
+
   return (
     <div className="card">
-      <SearchForm />
-
+      <SearchForm
+        ph="Search by name"
+        searchFn={searchStudentByName}
+      />
+      <SearchForm ph="Search by tag" />
       {studentsData.map((item, index) => {
         return (
           <div
@@ -44,7 +66,8 @@ function StudentsCard() {
             />
             <div className="card__content">
               <h1 className="card__name">
-                {item.firstName} {item.lastName}
+                {item.firstName.toUpperCase()}{" "}
+                {item.lastName.toUpperCase()}
               </h1>
               <p>Email:{item.email}</p>
               <p>Company:{item.company}</p>
