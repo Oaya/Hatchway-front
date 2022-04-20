@@ -1,9 +1,12 @@
-import React, {
-  createContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+
+const config = {
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+  }
+}
 
 export const StudentDataContext = createContext();
 
@@ -21,7 +24,7 @@ export default function StudentDataProvider(props) {
   //get api request at for first render//
   useEffect(() => {
     axios
-      .get(`https://www.hatchways.io/api/assessment/students`)
+      .get(`https://www.hatchways.io/api/assessment/students`, config)
       .then((res) => {
         setStudentsData(res.data.students);
         setFilteredData(res.data.students);
