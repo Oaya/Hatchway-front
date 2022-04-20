@@ -10,9 +10,6 @@ const config = {
 
 export const StudentDataContext = createContext();
 
-
-
-
 export default function StudentDataProvider(props) {
   const [studentsData, setStudentsData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -28,6 +25,8 @@ export default function StudentDataProvider(props) {
       .then((res) => {
         setStudentsData(res.data.students);
         setFilteredData(res.data.students);
+        setNameFilteredData(res.data.students);
+        setTagFilteredData(res.data.students);
       })
       .catch((err) => {
         console.log(err.message);
@@ -60,20 +59,28 @@ export default function StudentDataProvider(props) {
   //search by name//
   const searchStudentByName = (value) => {
     const nameFilteredData = [];
+    const contentFilterData = [];
     let fullName;
 
     if (value) {
+
       studentsData.map((student) => {
         fullName = (student.firstName + student.lastName).toUpperCase();
 
         if (fullName.includes(value)) {
           nameFilteredData.push(student);
         }
+
       });
-      setFilteredData(nameFilteredData);
+      nameFilteredData.map(data => {
+        fullName = (data.firstName + data.lastName).toUpperCase();
+        if (fullName.includes(value)) {
+          contentFilterData.push(data);
+        }
+      });
+
+      setFilteredData(contentFilterData);
       setNameFilteredData(nameFilteredData);
-    } else {
-      setFilteredData(tagFilteredData);
     }
   };
 
@@ -81,8 +88,9 @@ export default function StudentDataProvider(props) {
   const searchStudentByTag = (value) => {
     const filteredArray = [];
     const taggedArray = [];
+    console.log(value, nameFilteredData)
     if (value) {
-      filteredData.map((data) => {
+      studentsData.map((data) => {
         if (data.hasOwnProperty("tags")) {
           taggedArray.push(data);
         }
@@ -94,6 +102,8 @@ export default function StudentDataProvider(props) {
           }
         });
       });
+      console.log(filteredArray)
+
       setFilteredData(filteredArray);
       setTagFilteredData(filteredArray);
     } else {
