@@ -1,4 +1,19 @@
+$primary-color: rgb(197, 197, 197);
+$secondary-color: rgb(233, 233, 233);
+
+$default-border: 1px solid $primary-color;
+
 html {
-  background-color: rgb(233, 233, 233);
+  background-color: $secondary-color;
   font-family: "Raleway", sans-serif;
+}
+
+span {
+  font-weight: 200;
+  background: $secondary-color;
+  display: inline-block;
+  margin: 0.5em;
+  margin-left: 0;
+  padding: 0.5em;
+  border-radius: 5px;
 }

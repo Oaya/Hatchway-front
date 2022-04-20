@@ -12,10 +12,8 @@ export default function StudentList() {
     <div>
       {filteredData.map((item, index) => {
         return (
-          <div
-            key={item.id}
-            className="card__item"
-          >
+          <div key={item.id} className="card__item" >
+
             <img
               src={item.pic}
               alt="avatar"
@@ -26,31 +24,31 @@ export default function StudentList() {
                 {item.firstName.toUpperCase()}{" "}
                 {item.lastName.toUpperCase()}
               </h1>
-              <p>Email:{item.email}</p>
-              <p>Company:{item.company}</p>
-              <p>Skill:{item.skill}</p>
+              <div className="card__content-list">
+                <p>Email:{item.email}</p>
+                <p>Company:{item.company}</p>
+                <p>Skill:{item.skill}</p>
 
-              <p>
-                Average:
-                {item.grades.reduce(
-                  (acc, cur) => +acc + +cur,
-                  0
-                ) / item.grades.length}
-                %
-              </p>
-              {item.tags?.map((tag, i) => (
-                <span key={i}>{tag}</span>
-              ))}
+                <p>
+                  Average:
+                  {item.grades.reduce((acc, cur) => +acc + +cur, 0) / item.grades.length}
+                  %
+                </p>
 
-              <TagForm
-                id={item.id}
-                index={index}
-              />
-              {open.includes(item.id) && (
-                <StudentTestList
-                  grades={item.grades}
+                {item.tags?.map((tag, i) => (
+                  <span key={i}>{tag}</span>
+                ))}
+
+                <TagForm
+                  id={item.id}
+                  index={index}
                 />
-              )}
+                {open.includes(item.id) && (
+                  <StudentTestList
+                    grades={item.grades}
+                  />
+                )}
+              </div>
             </div>
             <ToggleButton id={item.id} />
           </div>

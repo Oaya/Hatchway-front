@@ -19,15 +19,18 @@ export default function TagForm(props) {
   };
 
   const updateTags =
-    studentsData.tags?.map((tag) => {
-      return <h1 key={tag.index}>{tag}</h1>;
+    studentsData.tags?.map((tag, i) => {
+
+      return <span className="tag_item" key={i}>{tag}</span>
+
+
     });
 
   return (
     <div>
       {updateTags}
-      <form onSubmit={handleSubmit}>
-        <input
+      <form onSubmit={handleSubmit} className="tag__form">
+        <input className="tag__form-input"
           value={inputTag}
           placeholder="Add a tag"
           onChange={handleChange}
