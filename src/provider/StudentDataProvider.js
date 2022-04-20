@@ -14,6 +14,7 @@ export default function StudentDataProvider(
     useState([]);
   const [searchValue, setSearchValue] =
     useState("");
+  const [open, setOpen] = useState([]);
 
   //get api request at for first render//
   useEffect(() => {
@@ -43,12 +44,25 @@ export default function StudentDataProvider(
     setStudentsData(StudentTagData);
   };
 
+  const toggleOpen = (id) => {
+    if (open.includes(id)) {
+      setOpen(open.filter((sid) => sid !== id));
+    } else {
+      let newOpen = [...open];
+      newOpen.push(id);
+      setOpen(newOpen);
+    }
+  };
+
   const providerData = {
     studentsData,
     searchValue,
+    open,
+    setOpen,
     setSearchValue,
     setStudentsData,
     addNewTag,
+    toggleOpen,
   };
 
   return (

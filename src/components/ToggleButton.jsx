@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+
+import { StudentDataContext } from "../provider/StudentDataProvider";
 
 export default function ToggleButton(props) {
-  // const [isToggle, setIsToggle] = useState(false);
-
-  // const handleClick = () => {
-  //   setIsToggle(!isToggle);
-  // };
-
+  const { toggleOpen, open } = useContext(
+    StudentDataContext
+  );
   return (
     <button
       className="card__button"
-      onClick={() => {
-        props.handleToggle();
-      }}
+      onClick={() => toggleOpen(props.id)}
     >
-      {props.isCollapsed ? "+" : "-"}
+      {open.includes(props.id) ? "-" : "+"}
     </button>
   );
 }

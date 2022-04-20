@@ -6,12 +6,9 @@ import React, {
 import { StudentDataContext } from "../provider/StudentDataProvider";
 
 export default function SearchForm(props) {
-  const {
-    studentsData,
-    setStudentsData,
-    searchValue,
-    setSearchValue,
-  } = useContext(StudentDataContext);
+  const { searchValue } = useContext(
+    StudentDataContext
+  );
   const [inputValue, setInputValue] =
     useState("");
 
