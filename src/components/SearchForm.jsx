@@ -15,6 +15,10 @@ export default function SearchForm(props) {
   const [inputValue, setInputValue] =
     useState("");
 
+  useEffect(() => {
+    props.searchFn();
+  }, [searchValue]);
+
   return (
     <div className="card__input">
       <input

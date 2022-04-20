@@ -46,13 +46,44 @@ function StudentsCard() {
     return setStudentsData(newData);
   };
 
+  const searchStudentByTag = (value) => {
+    const filteredArray = [];
+    const newArray = studentsData.filter((data) =>
+      data.hasOwnProperty("tags")
+    );
+
+    newArray.map((student) => {
+      student.tags.map((tag) => {
+        console.log(
+          tag
+            .toUpperCase()
+            .substr(0, value.length),
+          tag,
+          value
+        );
+        if (
+          value ===
+          tag
+            .toUpperCase()
+            .substr(0, value.length)
+        ) {
+          filteredArray.push(student);
+        }
+      });
+    });
+    return setStudentsData(filteredArray);
+  };
+
   return (
     <div className="card">
       <SearchForm
         ph="Search by name"
         searchFn={searchStudentByName}
       />
-      <SearchForm ph="Search by tag" />
+      <SearchForm
+        ph="Search by tag"
+        searchFn={searchStudentByTag}
+      />
       {studentsData.map((item, index) => {
         return (
           <div
