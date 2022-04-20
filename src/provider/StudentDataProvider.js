@@ -18,6 +18,7 @@ export default function StudentDataProvider(props) {
   const [nameFilteredData, setNameFilteredData] = useState([]);
   const [tagFilteredData, setTagFilteredData] = useState([]);
 
+
   //get api request at for first render//
   useEffect(() => {
     axios
@@ -27,6 +28,7 @@ export default function StudentDataProvider(props) {
         setFilteredData(res.data.students);
         setNameFilteredData(res.data.students);
         setTagFilteredData(res.data.students);
+
       })
       .catch((err) => {
         console.log(err.message);
@@ -56,28 +58,29 @@ export default function StudentDataProvider(props) {
     }
   };
 
+
+
+  //helper for searching function//
+  const mapData = (data, dataArray, value) => {
+    data.map((student) => {
+      let fullName;
+      fullName = (student.firstName + student.lastName).toUpperCase();
+
+      if (fullName.includes(value)) {
+        dataArray.push(student);
+      }
+
+    });
+  }
+
   //search by name//
   const searchStudentByName = (value) => {
     const nameFilteredData = [];
     const contentFilterData = [];
-    let fullName;
 
     if (value) {
-
-      studentsData.map((student) => {
-        fullName = (student.firstName + student.lastName).toUpperCase();
-
-        if (fullName.includes(value)) {
-          nameFilteredData.push(student);
-        }
-
-      });
-      nameFilteredData.map(data => {
-        fullName = (data.firstName + data.lastName).toUpperCase();
-        if (fullName.includes(value)) {
-          contentFilterData.push(data);
-        }
-      });
+      mapData(studentsData, nameFilteredData, value);
+      mapData(tagFilteredData, contentFilterData, value)
 
       setFilteredData(contentFilterData);
       setNameFilteredData(nameFilteredData);
@@ -88,7 +91,7 @@ export default function StudentDataProvider(props) {
   const searchStudentByTag = (value) => {
     const filteredArray = [];
     const taggedArray = [];
-    console.log(value, nameFilteredData)
+
     if (value) {
       studentsData.map((data) => {
         if (data.hasOwnProperty("tags")) {
@@ -102,7 +105,6 @@ export default function StudentDataProvider(props) {
           }
         });
       });
-      console.log(filteredArray)
 
       setFilteredData(filteredArray);
       setTagFilteredData(filteredArray);
