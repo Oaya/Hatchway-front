@@ -12,14 +12,16 @@ function StudentsCard() {
 
   return (
     <div className="card">
-      <SearchForm
-        ph="Search by name"
-        searchFn={searchStudentByName}
-      />
-      <SearchForm
-        ph="Search by tag"
-        searchFn={searchStudentByTag}
-      />
+      <div className="card__header">
+        <SearchForm
+          ph="Search by name"
+          searchFn={searchStudentByName}
+        />
+        <SearchForm
+          ph="Search by tag"
+          searchFn={searchStudentByTag}
+        />
+      </div>
       <StudentList />
     </div>
   );
