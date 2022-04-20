@@ -1,20 +1,23 @@
 import React, {
   useEffect,
   useState,
-  useContext,
 } from "react";
-import { StudentDataContext } from "../provider/StudentDataProvider";
 
 export default function SearchForm(props) {
-  const { searchValue } = useContext(
-    StudentDataContext
-  );
   const [inputValue, setInputValue] =
     useState("");
 
   useEffect(() => {
-    props.searchFn();
-  }, [searchValue]);
+    handleChange;
+  }, [inputValue]);
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+    console.log(e.target.value);
+    props.searchFn(
+      e.target.value.toUpperCase().trim()
+    );
+  };
 
   return (
     <div className="card__input">
@@ -23,12 +26,7 @@ export default function SearchForm(props) {
         type="text"
         value={inputValue}
         placeholder={props.ph}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          props.searchFn(
-            e.target.value.toUpperCase().trim()
-          );
-        }}
+        onChange={handleChange}
       />
     </div>
   );

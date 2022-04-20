@@ -6,15 +6,13 @@ import TagForm from "./TagForm";
 import { StudentDataContext } from "../provider/StudentDataProvider";
 
 export default function StudentList() {
-  const {
-    studentsData,
-
-    open,
-  } = useContext(StudentDataContext);
+  const { open, filteredData } = useContext(
+    StudentDataContext
+  );
 
   return (
     <div>
-      {studentsData.map((item, index) => {
+      {filteredData.map((item, index) => {
         return (
           <div
             key={item.id}

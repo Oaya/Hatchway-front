@@ -7,23 +7,21 @@ import axios from "axios";
 
 export const StudentDataContext = createContext();
 
-export default function StudentDataProvider(
-  props
-) {
-  const [studentsData, setStudentsData] =
-    useState([]);
-  const [searchValue, setSearchValue] =
-    useState("");
+export default function StudentDataProvider(props) {
+  const [studentsData, setStudentsData] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
   const [open, setOpen] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [nameFilteredData, setNameFilteredData] = useState([]);
+  const [tagFilteredData, setTagFilteredData] = useState([]);
 
   //get api request at for first render//
   useEffect(() => {
     axios
-      .get(
-        `https://www.hatchways.io/api/assessment/students`
-      )
+      .get(`https://www.hatchways.io/api/assessment/students`)
       .then((res) => {
         setStudentsData(res.data.students);
+        setFilteredData(res.data.students);
       })
       .catch((err) => {
         console.log(err.message);
@@ -32,18 +30,17 @@ export default function StudentDataProvider(
 
   //adding new tag to the studentData when user input//
   const addNewTag = (index, tag) => {
-    const StudentTagData = [...studentsData];
+    const studentTagData = [...studentsData];
 
-    if (
-      StudentTagData[index].tags === undefined
-    ) {
-      StudentTagData[index].tags = [tag];
+    if (studentTagData[index].tags === undefined) {
+      studentTagData[index].tags = [tag];
     } else {
-      StudentTagData[index].tags.push(tag);
+      studentTagData[index].tags.push(tag);
     }
-    setStudentsData(StudentTagData);
+    setStudentsData(studentTagData);
   };
 
+  //toggle the grade data//
   const toggleOpen = (id) => {
     if (open.includes(id)) {
       setOpen(open.filter((sid) => sid !== id));
@@ -54,15 +51,67 @@ export default function StudentDataProvider(
     }
   };
 
+  //search by name//
+  const searchStudentByName = (value) => {
+    let nameFilteredData = [];
+    let fullName;
+    if (value) {
+      filteredData.map((student) => {
+        fullName = (student.firstName + student.lastName).toUpperCase();
+
+        if (fullName.includes(value)) {
+          nameFilteredData.push(student);
+        }
+      });
+      setFilteredData(nameFilteredData);
+      setNameFilteredData(nameFilteredData);
+    } else {
+      setFilteredData(tagFilteredData);
+    }
+  };
+
+  //search by tag//
+  const searchStudentByTag = (value) => {
+    let filteredArray = [];
+    let taggedArray = [];
+    if (value) {
+      filteredData.map((data) => {
+        if (data.hasOwnProperty("tags")) {
+          taggedArray.push(data);
+        }
+      });
+      taggedArray.map((student) => {
+        student.tags.map((tag) => {
+          if (
+            value ===
+            tag
+              .toUpperCase()
+              .substr(0, value.length)
+          ) {
+            filteredArray.push(student);
+          }
+        });
+      });
+      setFilteredData(filteredArray);
+      setTagFilteredData(filteredArray);
+    } else {
+      setFilteredData(nameFilteredData);
+    }
+  };
+
   const providerData = {
     studentsData,
     searchValue,
     open,
+    filteredData,
     setOpen,
     setSearchValue,
     setStudentsData,
     addNewTag,
     toggleOpen,
+    setFilteredData,
+    searchStudentByName,
+    searchStudentByTag,
   };
 
   return (
