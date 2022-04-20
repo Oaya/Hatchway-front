@@ -32,7 +32,9 @@ export default function StudentDataProvider(props) {
   const addNewTag = (index, tag) => {
     const studentTagData = [...studentsData];
 
-    if (studentTagData[index].tags === undefined) {
+    if (
+      studentTagData[index].tags === undefined
+    ) {
       studentTagData[index].tags = [tag];
     } else {
       studentTagData[index].tags.push(tag);
@@ -53,10 +55,11 @@ export default function StudentDataProvider(props) {
 
   //search by name//
   const searchStudentByName = (value) => {
-    let nameFilteredData = [];
+    const nameFilteredData = [];
     let fullName;
+
     if (value) {
-      filteredData.map((student) => {
+      studentsData.map((student) => {
         fullName = (student.firstName + student.lastName).toUpperCase();
 
         if (fullName.includes(value)) {
@@ -72,8 +75,8 @@ export default function StudentDataProvider(props) {
 
   //search by tag//
   const searchStudentByTag = (value) => {
-    let filteredArray = [];
-    let taggedArray = [];
+    const filteredArray = [];
+    const taggedArray = [];
     if (value) {
       filteredData.map((data) => {
         if (data.hasOwnProperty("tags")) {
@@ -110,9 +113,7 @@ export default function StudentDataProvider(props) {
   };
 
   return (
-    <StudentDataContext.Provider
-      value={providerData}
-    >
+    <StudentDataContext.Provider value={providerData}>
       {props.children}
     </StudentDataContext.Provider>
   );
