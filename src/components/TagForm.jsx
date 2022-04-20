@@ -1,15 +1,10 @@
-import React, {
-  useState,
-  useContext,
-} from "react";
+import React, { useState, useContext } from "react";
 
 import { StudentDataContext } from "../provider/StudentDataProvider";
 
 export default function TagForm(props) {
   const [inputTag, setInputTag] = useState("");
-  const { addNewTag, studentsData } = useContext(
-    StudentDataContext
-  );
+  const { addNewTag, studentsData } = useContext(StudentDataContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,8 +20,7 @@ export default function TagForm(props) {
 
   const updateTags = () => {
     return (
-      studentsData.tags &&
-      studentsData.tags.map((tag) => {
+      studentsData.tags?.map((tag) => {
         <h1 key={tag.index}>{tag}</h1>;
       })
     );

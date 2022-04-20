@@ -1,11 +1,7 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 
-export default function SearchForm(props) {
-  const [inputValue, setInputValue] =
-    useState("");
+export default function SearchForm({ searchFn, ph }) {
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     handleChange;
@@ -13,10 +9,7 @@ export default function SearchForm(props) {
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
-    console.log(e.target.value);
-    props.searchFn(
-      e.target.value.toUpperCase().trim()
-    );
+    searchFn(e.target.value.toUpperCase().trim());
   };
 
   return (
@@ -25,7 +18,7 @@ export default function SearchForm(props) {
         className="card__input-form"
         type="text"
         value={inputValue}
-        placeholder={props.ph}
+        placeholder={ph}
         onChange={handleChange}
       />
     </div>

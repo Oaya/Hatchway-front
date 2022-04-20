@@ -45,7 +45,7 @@ export default function StudentDataProvider(props) {
     if (open.includes(id)) {
       setOpen(open.filter((sid) => sid !== id));
     } else {
-      let newOpen = [...open];
+      const newOpen = [...open];
       newOpen.push(id);
       setOpen(newOpen);
     }
@@ -82,12 +82,7 @@ export default function StudentDataProvider(props) {
       });
       taggedArray.map((student) => {
         student.tags.map((tag) => {
-          if (
-            value ===
-            tag
-              .toUpperCase()
-              .substr(0, value.length)
-          ) {
+          if (value === tag.toUpperCase().substr(0, value.length)) {
             filteredArray.push(student);
           }
         });

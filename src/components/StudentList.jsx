@@ -6,9 +6,7 @@ import TagForm from "./TagForm";
 import { StudentDataContext } from "../provider/StudentDataProvider";
 
 export default function StudentList() {
-  const { open, filteredData } = useContext(
-    StudentDataContext
-  );
+  const { open, filteredData } = useContext(StudentDataContext);
 
   return (
     <div>
@@ -40,10 +38,9 @@ export default function StudentList() {
                 ) / item.grades.length}
                 %
               </p>
-              {item.tags &&
-                item.tags.map((tag, i) => (
-                  <span key={i}>{tag}</span>
-                ))}
+              {item.tags?.map((tag, i) => (
+                <span key={i}>{tag}</span>
+              ))}
 
               <TagForm
                 id={item.id}
