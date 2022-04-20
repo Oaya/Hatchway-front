@@ -35,6 +35,12 @@ export default function StudentList() {
                   %
                 </p>
 
+                {open.includes(item.id) && (
+                  <StudentTestList
+                    grades={item.grades}
+                  />
+                )}
+
                 {item.tags?.map((tag, i) => (
                   <span key={i}>{tag}</span>
                 ))}
@@ -43,11 +49,7 @@ export default function StudentList() {
                   id={item.id}
                   index={index}
                 />
-                {open.includes(item.id) && (
-                  <StudentTestList
-                    grades={item.grades}
-                  />
-                )}
+
               </div>
             </div>
             <ToggleButton id={item.id} />
