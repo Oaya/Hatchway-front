@@ -18,13 +18,10 @@ export default function TagForm(props) {
     setInputTag(e.target.value);
   };
 
-  const updateTags = () => {
-    return (
-      studentsData.tags?.map((tag) => {
-        <h1 key={tag.index}>{tag}</h1>;
-      })
-    );
-  };
+  const updateTags =
+    studentsData.tags?.map((tag) => {
+      return <h1 key={tag.index}>{tag}</h1>;
+    });
 
   return (
     <div>
