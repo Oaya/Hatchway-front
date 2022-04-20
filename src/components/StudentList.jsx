@@ -13,12 +13,13 @@ export default function StudentList() {
       {filteredData.map((item, index) => {
         return (
           <div key={item.id} className="card__item" >
-
-            <img
-              src={item.pic}
-              alt="avatar"
-              className="card__image"
-            />
+            <div lassName="card__image-container">
+              <img
+                src={item.pic}
+                alt="avatar"
+                className="card__image"
+              />
+            </div>
             <div className="card__content">
               <h1 className="card__name">
                 {item.firstName.toUpperCase()}{" "}

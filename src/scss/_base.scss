@@ -7,16 +7,24 @@ html {
   background-color: $secondary-color;
   font-family: "Raleway", sans-serif;
 }
+
 body {
-  height: 100vh;
+  box-sizing: border-box;
 }
 
-span {
-  font-weight: 200;
-  background: $secondary-color;
-  display: inline-block;
-  margin: 0.5em;
-  margin-left: 0;
-  padding: 0.5em;
-  border-radius: 5px;
+p {
+  margin: 0.5em 0;
+}
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media (max-width: 700px) {
+      @content;
+    }
+  }
+  @if $breakpoint == tab-port {
+    @media (max-width: 900px) {
+      @content;
+    }
+  }
 }

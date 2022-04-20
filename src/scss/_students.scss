@@ -6,6 +6,12 @@
   width: 65%;
   margin: 3rem auto;
   background-color: white;
+  flex-wrap: wrap;
+
+  @include respond(tab-port) {
+    width: 80%;
+    margin: 3rem auto;
+  }
 
   &__header {
     position: sticky;
@@ -13,6 +19,7 @@
     padding: 0.2em 0;
     background-color: white;
     width: 100%;
+    z-index: 100;
   }
 
   &__search {
@@ -34,17 +41,42 @@
     border-bottom: $default-border;
     padding-bottom: 10px;
     align-items: flex-start;
+
+    @include respond(tab-port) {
+    }
+    @include respond(phone) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      position: relative;
+    }
   }
 
   &__image {
     border: $default-border;
     border-radius: 50%;
     width: 8rem;
-    margin: 2rem 1rem;
+    margin: 2em 1em;
+
+    @include respond(tab-port) {
+      margin: 1em 1em;
+    }
+
+    &-container {
+      @include respond(tab-port) {
+        align-self: center;
+        justify-content: center;
+      }
+    }
   }
 
   &__content {
     margin-left: 2em;
+
+    @include respond(tab-port) {
+      margin-left: 1em;
+    }
 
     &-list {
       margin-left: 1rem;
@@ -53,10 +85,16 @@
 
   &__name {
     font-weight: 900;
-  }
 
-  p {
-    margin: 0.5em 0;
+    @include respond(tab-port) {
+      font-size: 1.6em;
+    }
+
+    @include respond(phone) {
+      font-size: 2em;
+      letter-spacing: 2px;
+      text-align: center;
+    }
   }
 
   &__button {
@@ -68,6 +106,17 @@
 
     &:hover {
       color: black;
+    }
+
+    @include respond(tab-port) {
+      margin: 0.8em 0.3em 0 auto;
+      font-size: 1.5em;
+    }
+
+    @include respond(phone) {
+      position: absolute;
+      top: 0;
+      right: 0;
     }
   }
 }
@@ -102,4 +151,20 @@
 .card::-webkit-scrollbar {
   width: 0;
   height: 0;
+}
+
+span {
+  font-weight: 200;
+  background: $secondary-color;
+  display: inline-block;
+  margin: 0.5em;
+  margin-left: 0;
+  padding: 0.5em;
+  border-radius: 5px;
+
+  @include respond(tab-port) {
+    padding: 0.2em;
+    margin: 0.2em;
+    margin-left: 0;
+  }
 }
