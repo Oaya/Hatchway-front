@@ -13,9 +13,9 @@ export default function SearchForm({ searchFn, ph }) {
   };
 
   return (
-    <div className="card__input">
+    <div className="card__search">
       <input
-        className="card__input-form"
+        className="card__search-input"
         type="text"
         value={inputValue}
         placeholder={ph}

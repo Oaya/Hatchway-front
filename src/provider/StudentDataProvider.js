@@ -32,9 +32,7 @@ export default function StudentDataProvider(props) {
   const addNewTag = (index, tag) => {
     const studentTagData = [...studentsData];
 
-    if (
-      studentTagData[index].tags === undefined
-    ) {
+    if (studentTagData[index].tags === undefined) {
       studentTagData[index].tags = [tag];
     } else {
       studentTagData[index].tags.push(tag);
